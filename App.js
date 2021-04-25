@@ -37,7 +37,7 @@ const App = () => {
 
   const getCommits = () => {
     api
-      .get('/repos/dhanansoneji/Cats-Care/commits')
+      .get('/repos/dhanansoneji/FatchGitCommits/commits')
       .then(response =>
         response.data.map(e => {
           return {
@@ -50,6 +50,7 @@ const App = () => {
       .then(response => {
         setCommits(response);
         console.log(response);
+        console.log(isDarkMode);
       });
   };
 
