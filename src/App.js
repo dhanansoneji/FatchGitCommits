@@ -15,6 +15,8 @@ import {
   Text,
   useColorScheme,
   View,
+  Pressable,
+  Linking,
 } from 'react-native';
 
 import Header from './components/MyHeader';
@@ -47,6 +49,7 @@ const App = () => {
             commitSHA: e.sha,
             author: e.commit.author.name,
             message: e.commit.message,
+            url: e.html_url,
           };
         }),
       )
@@ -62,12 +65,17 @@ const App = () => {
 
   const keyExtractor = (item, index) => index.toString();
 
+  const loadInBrowser = url => {
+    Linking.openURL(url).catch(err => console.error("Couldn't load page", err));
+  };
+
   const renderItem = ({item}) => (
-    <View
+    <Pressable
       style={[
         {backgroundColor: isDarkMode ? Colors.black : Colors.white},
         styles.listItem,
-      ]}>
+      ]}
+      onPress={() => loadInBrowser(item.url)}>
       <Text style={styles.textAuthor}>@{item.author}</Text>
       <Text style={[styles.textSHA, styles.marginTop]}>{item.commitSHA}</Text>
       <Text
@@ -79,7 +87,7 @@ const App = () => {
         ]}>
         {item.message}
       </Text>
-    </View>
+    </Pressable>
   );
 
   return (
