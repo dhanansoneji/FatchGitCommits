@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
-import {Header} from 'react-native-elements';
+import {Header, Icon} from 'react-native-elements';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 function MyHeader({title, isDarkMode}) {
@@ -9,6 +9,14 @@ function MyHeader({title, isDarkMode}) {
       statusBarProps={{translucent: true}}
       backgroundColor={isDarkMode ? Colors.black : Colors.white}
       containerStyle={styles.container}
+      leftComponent={
+        <Icon
+          name="git-commit"
+          type="ionicon"
+          size={30}
+          color={isDarkMode ? Colors.white : Colors.black}
+        />
+      }
       centerComponent={{
         text: title,
         style: {
