@@ -41,7 +41,7 @@ const App = () => {
 
   const getCommits = () => {
     api
-      .get('/repos/dhanansoneji/FetchGitCommits/commits')
+      .get('/repos/dhanansoneji/FetchGitCommits/commits?per_page=25')
       .then(response =>
         response.data.map(e => {
           return {
