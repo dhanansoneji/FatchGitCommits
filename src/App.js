@@ -6,25 +6,22 @@
  * @flow strict-local
  */
 
+import {create} from 'apisauce';
 import React, {useEffect, useState} from 'react';
 import {
   FlatList,
+  Linking,
+  Pressable,
+  RefreshControl,
   SafeAreaView,
   StatusBar,
   StyleSheet,
   Text,
   useColorScheme,
   View,
-  Pressable,
-  Linking,
-  RefreshControl,
 } from 'react-native';
-
-import Header from './components/MyHeader';
-
-import {create} from 'apisauce';
-
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+import Header from './components/MyHeader';
 
 const api = create({
   baseURL: 'https://api.github.com',
