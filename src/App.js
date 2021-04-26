@@ -17,6 +17,7 @@ import {
   View,
   Pressable,
   Linking,
+  RefreshControl,
 } from 'react-native';
 
 import Header from './components/MyHeader';
@@ -39,6 +40,7 @@ const App = () => {
   };
 
   const [commits, setCommits] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
 
   const getCommits = () => {
     api
@@ -69,6 +71,12 @@ const App = () => {
     Linking.openURL(url).catch(err => console.error("Couldn't load page", err));
   };
 
+  const onRefresh = () => {
+    setRefreshing(true);
+    getCommits();
+    setRefreshing(false);
+  };
+
   const renderItem = ({item}) => (
     <Pressable
       style={[
@@ -96,6 +104,9 @@ const App = () => {
       <Header title="Fetch Git Commits" isDarkMode={isDarkMode} />
       <View style={styles.marginTop} />
       <FlatList
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
         contentInsetAdjustmentBehavior="automatic"
         keyExtractor={keyExtractor}
         data={commits}
