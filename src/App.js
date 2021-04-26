@@ -89,6 +89,7 @@ const App = () => {
             color: isDarkMode ? Colors.white : Colors.black,
           },
           styles.marginTop,
+          styles.textSize,
         ]}>
         {item.message}
       </Text>
@@ -125,11 +126,15 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   textAuthor: {
-    color: '#00FF00',
+    color: '#228B22',
     fontWeight: 'bold',
+    textTransform: 'uppercase',
   },
   textSHA: {
     color: '#0096FF',
+  },
+  textSize: {
+    fontSize: 16,
   },
 });
 
