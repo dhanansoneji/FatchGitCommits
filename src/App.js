@@ -10,7 +10,6 @@ import React, {useEffect, useState} from 'react';
 import {
   FlatList,
   SafeAreaView,
-  ScrollView,
   StatusBar,
   StyleSheet,
   Text,
@@ -34,6 +33,7 @@ const App = () => {
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    flex: 1,
   };
 
   const [commits, setCommits] = useState([]);
@@ -60,19 +60,61 @@ const App = () => {
     getCommits();
   }, []);
 
+  const keyExtractor = (item, index) => index.toString();
+
+  const renderItem = ({item}) => (
+    <View
+      style={[
+        {backgroundColor: isDarkMode ? Colors.black : Colors.white},
+        styles.listItem,
+      ]}>
+      <Text style={styles.textAuthor}>@{item.author}</Text>
+      <Text style={[styles.textSHA, styles.marginTop]}>{item.commitSHA}</Text>
+      <Text
+        style={[
+          {
+            color: isDarkMode ? Colors.white : Colors.black,
+          },
+          styles.marginTop,
+        ]}>
+        {item.message}
+      </Text>
+    </View>
+  );
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <Header title="Fetch Git Commits" isDarkMode={isDarkMode} />
-      <View
-        style={{
-          backgroundColor: isDarkMode ? Colors.black : Colors.white,
-        }}
+      <View style={styles.marginTop} />
+      <FlatList
+        contentInsetAdjustmentBehavior="automatic"
+        keyExtractor={keyExtractor}
+        data={commits}
+        renderItem={renderItem}
       />
     </SafeAreaView>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  marginTop: {
+    marginTop: 10,
+  },
+  listItem: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    marginBottom: 10,
+    marginHorizontal: 10,
+    borderRadius: 10,
+  },
+  textAuthor: {
+    color: '#00FF00',
+    fontWeight: 'bold',
+  },
+  textSHA: {
+    color: '#0096FF',
+  },
+});
 
 export default App;
