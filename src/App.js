@@ -8,6 +8,7 @@
 
 import React, {useEffect, useState} from 'react';
 import {
+  FlatList,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -16,6 +17,8 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+
+import Header from './components/MyHeader';
 
 import {create} from 'apisauce';
 
@@ -37,7 +40,7 @@ const App = () => {
 
   const getCommits = () => {
     api
-      .get('/repos/dhanansoneji/FatchGitCommits/commits')
+      .get('/repos/dhanansoneji/FetchGitCommits/commits')
       .then(response =>
         response.data.map(e => {
           return {
@@ -50,7 +53,6 @@ const App = () => {
       .then(response => {
         setCommits(response);
         console.log(response);
-        console.log(isDarkMode);
       });
   };
 
@@ -61,13 +63,12 @@ const App = () => {
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView contentInsetAdjustmentBehavior="automatic">
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}
-        />
-      </ScrollView>
+      <Header title="Fetch Git Commits" isDarkMode={isDarkMode} />
+      <View
+        style={{
+          backgroundColor: isDarkMode ? Colors.black : Colors.white,
+        }}
+      />
     </SafeAreaView>
   );
 };
